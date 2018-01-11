@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ajax</title>
+  </head>
+  <!-- <script src="ajax.js" charset="utf-8"></script> -->
+  <style media="screen">
+  .container {
+    /* 压缩左右内边距，留出 .left 和 .right 的距离 */
+    padding: 0 200px;
+}
+.container > div {
+    height: 200px;
+    float: left;
+}
+.middle {
+    width: 100%;
+    background: blue;
+}
+.left {
+  /*因为left/right元素在父元素内部，所以margin-left/margin-right都是按照父元素的宽度（不包含margin/border/padding的宽度），因为
+  这里用了float都是浮动元素，middle的宽度是100%,所以，left被挤到了下排。因此，向左移动margin-left: -100%到父元素内容的最左边，margin-right:-200px向左移动200px到父元素的右侧覆盖200px的地方，再由left:-200px设定向左移动200px,right:-200px向右移动200px;*/
+    margin-left: -100%; /* 用 -100% 吃掉 .middle 的宽度 */
+    position: relative; /* 相对 .container -200px */
+    left: -200px;
+    width: 200px;
+    background: red;
+}
+.right {
+    margin-left: -200px; /* 用 -200px 吃掉 .right 自己的宽度 */
+    position: relative; /* 相对 .container -200px */
+    right: -200px;
+    width: 200px;
+    background: green;
+}
+  </style>
+  <body>
+    <div class="container">
+        <div class="middle"></div>
+        <!-- 因为要先渲染 .middle，所以 .middle 一定要写在第一个 -->
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

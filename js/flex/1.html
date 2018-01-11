@@ -1,0 +1,185 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<style media="screen">
+    .cmstd {
+        height: 200px;
+        width: 200px;
+        border: 1px solid red;
+        vertical-align: middle;
+        /*align: center;*/
+    }
+
+    .cmsdiv {
+        width: 100px;
+        height: 100px;
+        background: blue;
+    }
+</style>
+
+<body class="body">
+    <table>
+        <tr>
+            <td class="cmstd" align="center">
+                <div class="cmsdiv">
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<style media="screen">
+  *{
+    margin: 0;
+    padding: 0px;
+  }
+    body {
+        background-size: cover;
+        background-image: url("./Galaxy.jpg");
+        background-repeat: no-repeat;
+        display: flex;
+    }
+    .login_wrap{
+      margin: 50px auto ;
+      background-color: #fff;
+      border-radius: 4px;
+      border-bottom: 1px solid #cacaca;
+    }
+    .login_wrap_inner{
+      margin: 50px;
+    }
+    .title_1{
+      margin:50px 25px;
+      font-size: 42px;
+      font-family: "Arial";
+      color: #009dff;
+    }
+    .title_2{
+      display: block;
+      margin-left: 25px;
+      font-size: 24px;
+      font-family: "Calibri";
+      color: #72828d;
+    }
+    .error_tip{
+      margin-left: 25px;
+    	font-size: 12px;
+    	font-family: "宋体";
+    	color: #ff1313;
+    }
+    .login_info{
+      margin-left: 25px;
+      margin-top: 10px;
+    }
+    .common{
+     width: 310px;
+     height: 46px;
+     font-size: 16px;
+   	font-family: "Microsoft YaHei";
+   	border-radius: 4px;
+   	border: 1px solid #cbcbcb;
+   	padding-left: 5px;
+   	padding-right: 5px;
+
+    }
+    .common:focus{
+     border: 1px solid lightsteelblue;
+    }
+    .name{
+      margin-bottom: 20px;
+    }
+    .account{
+      margin-bottom: 20px;
+    }
+    .password{
+     margin-bottom: 10px;
+    }
+    .check_box{
+      height: 14px;
+    	margin-left: 25px;
+    	margin-bottom: 20px;
+    }
+    .loginto{
+      margin-left: 25px;
+      margin-right: 25px;
+      width: 320px;
+      height: 46px;
+      font-size: 20px;
+      font-family: "Microsoft YaHei";
+      border-radius: 4px;
+      border: none;
+      background-color: #009dff;
+    }
+    .loginto:hover{
+      background-color: #34b0fd;
+    }
+    .login_check_label {
+    	margin-left: 10px;
+    	font-family: "Microsoft yahei";
+    	font-size: 14px;
+    	color: #999999;
+    	line-height: 14px;
+    }
+    .check_box_true{
+      float: left;
+      width: 14px;
+      height: 14px;
+      border-radius:2px;
+
+    }
+
+</style>
+
+<body>
+    <div class="login_wrap">
+      <div class="login_wrap_inner">
+           <label class="title_1">SHBSM&nbsp;CSP</label>
+           <label class="title_2">Version&nbsp;1.0</label>
+           <div class="error_tip">
+             <label></label>
+           </div>
+           <div class="login_info">
+             <div >
+               <input type="text" class="name common" placeholder="姓名">
+             </div>
+             <div >
+               <input type="text" class="account common" placeholder="帐号">
+             </div>
+             <div >
+               <input type="password" class="password common" placeholder="密码">
+             </div>
+
+           </div>
+           <div class="check_box">
+
+
+           <div class="check_box_true">
+              <img src="./login_checked.png" />
+           </div>
+           <label class="login_check_label">保存登录信息</label>
+            </div>
+           <button type="button" class="loginto">登&nbsp;&nbsp;录</button>
+      </div>
+    </div>
+</body>
+
+</html>

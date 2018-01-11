@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style media="screen">
+  .container > div {
+  float: left;
+  height: 200px;
+}
+.middle {
+  width: 100%;
+  background: red;
+}
+.middle-container { /* 添加 .middle-container 包裹内容 */
+  height: 200px;
+  margin: 0 200px;
+  background: darkred;
+}
+.left {
+  width: 200px;
+  margin-left: -100%;
+  background: blue;
+}
+.right {
+  width: 200px;
+  margin-left: -200px;
+  background: green;
+}
+  </style>
+  <body>
+    <div class="container">
+        <div class="middle">
+            <div class="middle-container"></div>
+        </div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+</html>

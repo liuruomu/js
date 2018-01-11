@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>常用console命令</title>
+    
+</head>
+<body>
+    <script type="text/javascript">
+var info = {
+    blog: "http://cllgeek.github.io",
+    : 495489065,
+    message: "程序爱好者欢迎你的加入"
+};
+console.dir(info);
+</script>
+</body>
+</html>
