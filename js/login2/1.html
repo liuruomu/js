@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<style media="screen">
+
+.login_content {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	z-index: -2;
+	overflow: hidden;
+}
+.background_image{
+	width: 100%;
+	z-index: -1;
+	position: fixed;
+	/*padding-bottom: 100%;*/
+}
+
+.login_userform_front {
+	z-index: 0;
+	display: flex;
+}
+.package{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	background: #fff;
+	border-bottom: 1px solid #cacaca;
+	border-radius: 4px;
+}
+.package_inner{
+margin: 50px;
+}
+.login_title_label {
+	margin:50px 50px;
+	font-size: 42px;
+	font-family: "Arial";
+	color: #009dff;
+}
+.login_version_label {
+	display: block;
+	margin-left: 50px;
+	font-size: 24px;
+	font-family: "Calibri";
+	color: #72828d;
+}
+.login_tips_label {
+	margin-left: 50px;
+	font-size: 12px;
+	font-family: "宋体";
+	color: #ff1313;
+}
+.login_form_div {
+	margin-left: 50px;
+	width: calc(100% - 120px);
+	-webkit-app-region:no-drag;
+}
+.login_form_unend_item {
+	width: 100%;
+	margin-bottom: 30px;
+}
+.login_form_end_item {
+	width: 100%;
+	margin-bottom: 10px;
+}
+.login_normal_input {
+	width: 320px;
+	height: 46px;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	border-radius: 4px;
+	border: 1px solid #cbcbcb;
+	padding-left: 5px;
+	padding-right: 5px;
+	outline: none;
+	-webkit-app-region:no-drag;
+}
+.login_normal_input::-webkit-input-placeholder {
+	color: #d8d8d8;
+}
+.login_normal_input:focus {
+	border: 1px solid lightsteelblue;
+}
+.login_error_input {
+	width: 320px;
+	height: 46px;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	border-radius: 2px;
+	border: 1px solid #ff1313;
+	padding-left: 5px;
+	padding-right: 5px;
+	outline: none;
+	-webkit-app-region:no-drag;
+}
+.login_error_input::-webkit-input-placeholder {
+	color: #d8d8d8;
+}
+.login_check {
+	height: 14px;
+	margin-left: 50px;
+	margin-bottom: 20px;
+	-webkit-app-region:no-drag;
+
+}
+.login_check_box_true {
+	float: left;
+	width: 14px;
+	height: 14px;
+	border-radius:2px;
+}
+.login_check_box_false {
+	float: left;
+	width: 12px;
+	height: 12px;
+	border-radius: 2px;
+	border: 1px solid #adadad;
+}
+.login_check_label {
+	margin-left: 10px;
+	font-family: "Microsoft yahei";
+	font-size: 14px;
+	color: #999999;
+	line-height: 14px;
+}
+.login_btn {
+	margin-left: 50px;
+	width: 333px;
+	height: 46px;
+	font-size: 20px;
+	font-family: "Microsoft YaHei";
+	border: none;
+	outline: none;
+	border-radius: 2px;
+	-webkit-app-region:no-drag;
+}
+.login_blue_btn {
+	color: #d5e9fd;
+	background-color: #009dff;
+}
+.login_blue_btn:hover {
+	background-color: #34b0fd;
+}
+*{
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+<body>
+  <div class = "login_content" ng-controller = "loginCtrl" ng-init = "loginInit()"  ng-cloak>
+    <img class="background_image"src="./Galaxy.jpg">
+    <div class = "login_userform_front">
+      <div class="package">
+        <div class="package_inner">
+      <label class = "login_title_label">CHRONOS&nbsp;CMS</label>
+      <label class = "login_version_label">Version&nbsp;1.0</label>
+      <div >
+        <label class = "login_tips_label">{{loginInfo.errorString}}</label>
+      </div>
+      <div class = "login_form_div">
+        <div class="login_form_unend_item">
+          <input type="text" class = "login_normal_input" oninput="cms.unsignedIntInput(event)" placeholder="资产管理人编号" ng-model = "loginInfo.maid" ng-focus = "loginHideError(1)">
+        </div>
+        <div class="login_form_unend_item">
+          <input type="text" class = "login_normal_input" oninput="cms.unsignedIntInput(event)" placeholder="操作员账号" ng-model = "loginInfo.oid" ng-focus = "loginHideError(2)">
+        </div>
+        <div class="login_form_end_item">
+          <input type="password" class = "login_normal_input" placeholder="操作员密码" ng-model = "loginInfo.pass" ng-focus = "loginHideError(3)">
+        </div>
+      </div>
+      <div class = "login_check">
+        <div class = "login_check_box_true" ng-click= "savePass()">
+          <img src="./login_checked.png" style="border-radius:4px" ng-show = "loginInfo.savePass"/>
+        </div>
+        <label class = "login_check_label">保存登录信息</label>
+      </div>
+      <button type="button" class = "login_btn login_blue_btn" ng-click = "loginToServer()">登&nbsp;&nbsp;录</button>
+    </div>
+  </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
