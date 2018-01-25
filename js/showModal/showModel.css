@@ -1,0 +1,24 @@
+#main_modal_backper{
+  top:0;
+  height:1000px;
+  width: 1000px;
+  left: 0;
+  background: #fcfcfc;
+}
+#main_change_tip_modal{
+  height: auto;
+  width: 300px;
+}
+.common_modal_title_div{
+  background-color: red;
+
+}
+.common_modal_title_div:hover{
+
+}
+.common_modal_body{
+  background-color: blue;
+}
+.common_modal_footer{
+  background: yellow;
+}
