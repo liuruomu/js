@@ -1,0 +1,93 @@
+<div class = "common_page_html common_scroll_div" ng-controller = "unitlistCtrl" ng-init = "unitlistInit()">
+    <div class = "common_normal_operate_div common_nowrap">
+      <!-- 过滤 -->
+		<input type="text" class = "common_normal_input common_line_unend_item common_search_input_length" placeholder = "请输入要查询的单元编号或单元名称" ng-model = "searchContent" ng-change = "unitlistFilterUnit()">
+		<button type="button" class = "common_blue_btn common_normal_btn common_default_length"  ng-click = "unitlistRefresh()">刷&nbsp;&nbsp;新</button>
+	</div>
+	<div class = "common_normal_data_div common_scroll_div">
+		<table class = "common_fixed_table" onclick="cms.addClassToTableHead(event,'common_activeTH');">
+			<thead >
+				<tr >
+					<th class = "common_center_align common_nowrap">单元编号</th>
+					<th class = "common_center_align common_nowrap">单元名称</th>
+                    <th class = "common_center_align common_nowrap">核算币种</th>
+                    <th class = "common_center_align common_nowrap">资金汇总</th>
+                    <th class = "common_center_align common_nowrap">总权益</th>
+                    <th class = "common_center_align common_nowrap">份额</th>
+                    <th class = "common_center_align common_nowrap">净值</th>
+					<th class = "common_center_align common_nowrap">状态</th>
+					<th class = "common_center_align common_nowrap">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+                <tr ng-repeat = "ul in unitList" ng-show = "ul.show && !(ul.add == true && ((ul.leaf == 0 && userRight['20201'] < 1 ) || ( ul.leaf == 1 && userRight['20204'] < 1 ) || ( ul.leaf == 2 && userRight['20209'] < 1 ) ) )"
+                    ng-class = "{true:'common_activeTr',false:''}[$index == homeClickTr ]" ng-click = "unitlistClickTr($index)">
+					<td class = "common_left_align common_nowrap">
+						<img src="../commonui/images/icon_table_fold.png" draggable="false" class = "common_fold_icon" ng-class = "{true:'unitlist_lv1_item',false:'unitlist_lv2_item'}[ul.leaf == 0]" ng-show = "ul.leaf !=2 && ul.add == false && ul.fold == true" title = "展开" ng-click = "unitlistUnfoldTable($index)"/>
+						<img src="../commonui/images/icon_table_unfold.png" draggable="false" class = "common_fold_icon" ng-class = "{true:'unitlist_lv1_item',false:'unitlist_lv2_item'}[ul.leaf == 0]" ng-show = "ul.leaf !=2 && ul.add == false && ul.fold == false" title = "收起" ng-click = "unitlistFoldTable($index)"/>
+						<img src="../commonui/images/icon_maid.png" draggable="false" class = "common_unit_icon" ng-class = "{true:'unitlist_lv2_item',false:'unitlist_lv1_item'}[ul.add]" ng-show = "ul.leaf == 0" />
+						<img src="../commonui/images/icon_caid.png" draggable="false" class = "common_unit_icon" ng-class = "{true:'unitlist_lv3_item',false:'unitlist_lv1_item'}[ul.add]" ng-show = "ul.leaf == 1" />
+						<img src="../commonui/images/icon_tatrd.png" draggable="false" class = "common_unit_icon unitlist_lv4_item" ng-show = "ul.leaf == 2" />
+						<label class = "unitlist_table_maid_label common_normal_text" ng-show = "ul.leaf == 0 && ul.add == false">{{ul.maid}}</label>
+						<label class = "unitlist_table_caid_label common_normal_text" ng-show = "ul.leaf == 1 && ul.add == false">{{ul.caid}}</label>
+						<label class = "unitlist_table_trid_label common_normal_text" ng-show = "ul.leaf == 2 && ul.add == false">{{ul.trid}}</label>
+						<button class = "unitlist_table_add_label common_table_operate_text"  ng-disabled = "userRight['20201'] < 3" ng-show = "ul.leaf == 0 && ul.add == true" ng-click = "unitlistAddTamgr()">添加资产管理人</button>
+						<button class = "unitlist_table_add_label common_table_operate_text"  ng-disabled = "userRight['20204'] < 3" ng-show = "ul.leaf == 1 && ul.add == true" ng-click = "unitlistAddTacap($index)">添加产品</button>
+						<button class = "unitlist_table_add_label common_table_operate_text" ng-disabled = "userRight['20209'] < 3" ng-show = "ul.leaf == 2 && ul.add == true" ng-click = "unitlistAddTatrd($index)">添加策略组合</button>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<label class = "common_normal_text" ng-show = "ul.add == false && ul.leaf == 0">{{ul.maname}}</label>
+						<label class = "common_normal_text" ng-show = "ul.add == false && ul.leaf == 1">{{ul.caname}}</label>
+						<label class = "common_normal_text" ng-show = "ul.add == false && ul.leaf == 2">{{ul.trname}}</label>
+					</td>
+                    <td class = "common_center_align common_nowrap">
+                        <label class = "common_normal_text" ng-if = "ul.add == false">{{ul.curencychname+"("+ul.briefcode+")"}}</label>
+                    </td>
+                    <td class = "common_right_align common_nowrap">
+                        <label class = "common_normal_text" ng-if = "ul.add == false && ul.leaf == 2">{{ul.tatrd_balance | number:3 }}</label>
+                    </td>
+                    <td class = "common_right_align common_nowrap">
+                        <label class = "common_normal_text" ng-if = "ul.add == false && ul.leaf != 0">{{ul.totalint | number:3}}</label>
+                    </td>
+                    <td class = "common_right_align common_nowrap">
+                        <label class = "common_normal_text" ng-if = "ul.add == false && ul.leaf != 0">{{ul.totalshare | number:0}}</label>
+                    </td>
+                    <td class = "common_right_align common_nowrap">
+                        <label class = "common_normal_text" ng-if = "ul.add == false && ul.leaf != 0">{{ul.netvalue | number:3}}</label>
+                    </td>
+					<td class = "common_center_align common_nowrap">
+						<label class = "common_normal_text" ng-show = "ul.add == false"> {{ul.stat == "0" ? "不可用" : "可用"}}</label>
+					</td>
+					<td class = "common_center_align common_nowrap">
+						<button class = "common_table_operate_text" ng-if = "(ul.leaf == 0 && userRight['20202'] >= 1) || (ul.leaf == 1 && userRight['20205'] >= 1) || (ul.leaf == 2 && userRight['20210'] >= 1)"
+                            ng-disabled = "(ul.leaf == 0 && userRight['20202'] < 3) || (ul.leaf == 1 && userRight['20205'] < 3) || (ul.leaf == 2 && userRight['20210'] < 3)" ng-show = "ul.add == false" ng-click = "unitlistFreeze($index)">{{ul.stat == "0" ? "解冻" : "冻结"}}</button>
+						<label class = "common_table_operate_divider" ng-if = "(ul.leaf == 0 && userRight['20202'] >= 1) || (ul.leaf == 1 && userRight['20205'] >= 1) || (ul.leaf == 2 && userRight['20210'] >= 1)"
+                             ng-show = "ul.add == false">|</label>
+						<button class = "common_table_operate_text" ng-if = "(ul.leaf == 0 && userRight['20203'] >= 1) || (ul.leaf == 1 && userRight['20206'] >= 1) || (ul.leaf == 2 && userRight['20211'] >= 1)"
+                             ng-disabled = "(ul.leaf == 0 && userRight['20203'] < 3) || (ul.leaf == 1 && userRight['20206'] < 3) || (ul.leaf == 2 && userRight['20211'] < 3)" ng-show = "ul.add == false" ng-click = "unitlistEditBasicInfo($index)">基本信息修改</button>
+                        <label class = "common_table_operate_divider" ng-if = "(ul.leaf == 0 && userRight['20203'] >= 1) || (ul.leaf == 1 && userRight['20206'] >= 1) || (ul.leaf == 2 && userRight['20211'] >= 1)" ng-show = "ul.leaf == 1 && ul.add == false">|</label>
+						<button class = "common_table_operate_text" ng-if = "userRight['20207'] >= 1" ng-disabled = "userRight['20207'] < 3" ng-show = "ul.leaf == 1 && ul.add == false" ng-click = "unitlistProductAddSubject(ul)">添加外部资产</button>
+                        <label class = "common_table_operate_divider"  ng-if = "userRight['20207'] >= 1" ng-show = "ul.leaf == 1 && ul.add == false">|</label>
+                        <button class = "common_table_operate_text" ng-if = "userRight['20216'] >= 1" ng-disabled = "userRight['20216'] < 3" ng-show = "ul.leaf == 1 && ul.add == false" ng-click = "unitlistProductChannel(ul)">产品通道</button>
+                        <label class = "common_table_operate_divider"  ng-if = "userRight['20216'] >= 1" ng-show = "ul.leaf == 1 && ul.add == false">|</label>
+						<button class = "common_table_operate_text" ng-if = "userRight['20208'] >= 1" ng-disabled = "userRight['20208'] < 3" ng-show = "ul.leaf == 1 && ul.add == false" ng-click = "unitlistProductContractAccount(ul)">绑定资金账户</button>
+						<label class = "common_table_operate_divider" ng-if = "userRight['20208'] >= 1"  ng-show = "ul.leaf == 2 && ul.add == false">|</label>
+                        <button class = "common_table_operate_text" ng-if = "userRight['20212'] >= 1" ng-disabled = "userRight['20212'] < 3" ng-show = "ul.leaf == 2 && ul.add == false" ng-click="unitlistTatrdConnectTatract($index)">关联交易账户</button>
+						<label class = "common_table_operate_divider" ng-if = "userRight['20212'] >= 1" ng-show = "ul.leaf == 2 && ul.add == false">|</label>
+						<button class = "common_table_operate_text" ng-if = "userRight['20213'] >= 1" ng-disabled = "userRight['20213'] < 3" ng-show = "ul.leaf == 2 && ul.add == false" ng-click="unitlistTatrdFundSet($index)">资金设置</button>
+						<label class = "common_table_operate_divider" ng-if = "userRight['20213'] >= 1" ng-show = "ul.leaf == 2 && ul.add == false && ul.isPosition != 0">|</label>
+						<button class = "common_table_operate_text" ng-if = "userRight['20214'] >= 1" ng-disabled = "userRight['20214'] < 3" ng-show = "ul.leaf == 2 && ul.add == false && ul.isPosition != 0" ng-click = "unitlistTatrdRateSet(ul)">股票费率</button>
+                        <label class = "common_table_operate_divider" ng-if = "userRight['20214'] >= 1" ng-show = "ul.leaf == 2 && ul.add == false && ul.isFutures != 0">|</label>
+                        <button class = "common_table_operate_text" ng-if = "userRight['20215'] >= 1" ng-disabled = "userRight['20215'] < 3" ng-show = "ul.leaf == 2 && ul.add == false && ul.isFutures != 0" ng-click = "setFuturesFeerate(ul)">期货费率</button>
+                        <label class = "common_table_operate_divider" ng-if = "userRight['20215'] >= 1" ng-show = "ul.leaf == 2 && ul.add == false && ul.isFutures != 0">|</label>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+  <!-- 弹框背景/内容/拖动-->
+  <!-- 通过修改path达到添加不同弹框的目的，通过onload实现调用dragelement的目的 -->
+    <div class = "common_modal_back" id = "unitlist_modal_back">
+        <div ng-include = "modalInfo.path" onload = "unitlistLoadModalReady()"></div>
+    </div>
+</div>
