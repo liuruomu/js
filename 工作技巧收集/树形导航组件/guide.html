@@ -1,0 +1,21 @@
+<div style = "width: 100%;">
+	<div class = "directive_search_input directive_guide_search">
+		<input type="text" placeholder="搜索..." ng-model = "filterContent" ng-change = "guideFilterList()">
+		<i class = "iconfont icon-sousuoicon2"></i>
+	</div>
+	<!-- <img src="../commonui/images/icon_refresh.png" class = "directive_refresh_icon" title = "刷新列表" ng-click = "guideRefreshList()"> -->
+	<div ng-class = "{true:'directive_active_guide_item',false:'directive_guide_item'}[guide.select]" ng-repeat = "guide in guideList" ng-show = "guide.show && guide.filter" ng-click = "guideClickMenu(guide)">
+		<div class = "directive_nowrap" ng-class = "{'directive_lv1_item':guide.level == 1,'directive_lv2_item':guide.level == 2,'directive_lv3_item':guide.level == 3,'directive_lv4_item':guide.level == 4,'directive_lv5_item':guide.level == 5}">
+			<img class = "directive_guide_fold_icon" draggable="false" src="../commonui/images/icon_table_fold.png" ng-show = "!guide.leaf && guide.hasChild && guide.fold" ng-click = "guideFoldTree(guide,$event)">
+			<img class = "directive_guide_fold_icon" draggable="false" src="../commonui/images/icon_table_unfold.png" ng-show = "!guide.leaf && guide.hasChild && !guide.fold" ng-click = "guideFoldTree(guide,$event)">
+			<img class = "directive_guide_unit_icon" draggable="false" ng-class = "{true:'directive_guide_margin_item',false:''}[!guide.leaf && !guide.hasChild]" src="../commonui/images/icon_maid.png" ng-show = "guide.type == 'maid'">
+			<img class = "directive_guide_unit_icon" draggable="false" ng-class = "{true:'directive_guide_margin_item',false:''}[!guide.hasChild]" src="../commonui/images/icon_caid.png" ng-show = "guide.type == 'caid'">
+			<img class = "directive_guide_unit_icon" draggable="false" ng-class = "{true:'directive_guide_margin_item',false:''}[!guide.hasChild]" src="../commonui/images/icon_tatrd.png" ng-show = "guide.type == 'trid'">
+			<img class = "directive_guide_unit_icon" draggable="false" ng-class = "{true:'directive_guide_margin_item',false:''}[!guide.hasChild]" src="../commonui/images/icon_acid.png" ng-show = "guide.type == 'acid'">
+			<img class = "directive_guide_unit_icon" draggable="false" ng-class = "{true:'directive_guide_margin_item',false:''}[!guide.hasChild]" src="../commonui/images/icon_trader.png" ng-show = "guide.type == 'trader'">
+			<label ng-class = "{true:'directive_guide_active_label',false:'directive_guide_label'}[guide.select]" title = "{{showId ? guide.menuName + '('+guide.menuId+')' : guide.menuName}}">
+				{{showId ? guide.menuName + "("+guide.menuId+")" : guide.menuName}}
+			</label>
+		</div>
+	</div>
+</div>

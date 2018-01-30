@@ -3,59 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script src="http://img.mukewang.com/down/540812440001e40e00000000.js" type="text/javascript"></script>
-<script src="http://img.mukewang.com/down/541f6ff70001a0a500000000.js" type="text/javascript"></script>
 <title></title>
 </head>
 <body>
 
-<div id="aaron"></div>
-
 <script type="text/javascript">
 
-//类一：
-function ajQuery() {
-  this.name = 'jQuery';
-  this.sayName = function() {
-    return this.name
-  }
-}
-var a = new ajQuery()
-var b = new ajQuery()
-var c = new ajQuery()
-console.log('a',a);
-
-
-// 类二
-function ajQuery() {
-    this.name = 'jQuery'
-}
-ajQuery.prototype = {
-    sayName: function() {
-    return this.name
-    }
-}
-var a = new ajQuery()
-var b = new ajQuery()
-var c = new ajQuery()
-
-console.log('b',b);
-// jQuery的写法
-var $jQuery = function(selector, context) {
-  return new $jQuery.fn.init(selector, context);
-}
-
-$jQuery.fn = $jQuery.prototype = {
-  init: function() {
-    this.name = 'aaron'
-    return this;
-  },
-  constructor: $jQuery
-}
-
-var $a = $jQuery();
-
-show('$jQuery的调用')
-show($a);
+jQuery.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
+    $('body').append(name.toLowerCase()+'</br>')
+    //console.log();
+},['aaa','bbb']);
 
 </script>
 </body>
